@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+html {
+    font-size: 100%;
+}
+
+body {
+    font-family: "Yu Gothic Medium";
+    line-height: 1.7;
+    margin: 0px;
+    background-color: rgb(50, 205, 133);
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+.main-nav {
+    display: flex;
+    list-style: none;
+    margin-top: 34px;
+   /* text-transform: uppercase; */
+}
+
+.main-nav li {
+    margin-left: 36px;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: linen;
+}
+
+.wrapper {
+    padding: 0 50px;
+}
+
