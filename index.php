@@ -1,17 +1,18 @@
 <?php
-require_once(__DIR__ . '/initPdo.php');
+require_once(__DIR__ . '/Dao/UserDao.php');
+require_once(__DIR__ . '/Dao/BlogDao.php');
+require_once(__DIR__ . '/redirect.php');
+
+session_start();
+
+$userId = $_SESSION['user_id'] ?? null;
+$userName = $_SESSION['name'] ?? 'ゲスト';
 
 try {
-    $pdo = initPdo();
-    $sql = 'SELECT *
-        FROM blogs';
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
-
-    // PDO::FETCH_ASSOCについてhttps://blog.senseshare.jp/fetch-mode.html参照
-    $blogList = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // TODO: 誰のブログとか関係なく、全件取得でOKです！
+    $blogList = $userDao->findById($userId);
 } catch (Exception $e) {
-    $e->getMessage();
+    echo $e->getMessage();
 }
 ?>
 <!DOCTYPE html>
@@ -27,14 +28,27 @@ try {
 
 <body>
     <header class="page-header wrapper">
-        <!-- TODO php文(name表示) -->
-        <h2>こんにちは</h2>
+        <h2>こんにちは<?php echo $userName; ?>さん</h2>
         <nav>
             <ul class="main-nav">
-                <li><a href="mypage.php">マイページ</a></li>
-                <li><a href="logout.php">ログアウト</a></li>
+                <?php if (is_null($userId)) : ?>
+                    <li><a href="loginHome.php">ログイン</a></li>
+                <?php else : ?>
+                    <li><a href="mypage.php">マイページ</a></li>
+                    <li><a href="logout.php">ログアウト</a></li>
+                <?php endif; ?>
             </ul>
         </nav>
+        <!-- TODO 検索ボタン実装 -->
+        <form action="seach.php" method="GET">
+            <input type="seach" name="seach" placeholder="キーワードから検索">
+            <input type="submit" name="submit" value="検索">
+        </form>
+        <?php if ($blogList != null) : ?>
+            <?php foreach ($blogList as $blog) : ?>
+                <>
+                <?php endforeach; ?>
+            <?php endif; ?>
     </header>
 </body>
 
