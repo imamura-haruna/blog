@@ -21,17 +21,17 @@ try {
 
     // スーパーグローバル変数
     // ログイン情報をセッションに保存する
-    $_SESSION['user_id'] = $user['id'];
-    $_SESSION['name'] = $user['name'];
+    $_SESSION['user']['id'] = $user['id'];
+    $_SESSION['user']['name'] = $user['name'];
 
     $userEmail = $user['email'];
-    $path = 'http://localhost/blog/index.php?email=' . $userEmail;
-
+    $path = 'http://localhost/blog/index.php';
     Redirect::handler($path);
+
 } catch (Exception $e) {
     echo $e->getMessage();
-    $path = 'http://localhost/blog/loginHome.php';
-    Redirect::handler($path);
+    //$path = 'http://localhost/blog/loginHome.php';
+    //Redirect::handler($path);
 }
 
 

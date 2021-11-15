@@ -5,7 +5,7 @@
     <?php
 
     require_once(__DIR__ . '/Dao/UserDao.php');
-    require_once(__DIR__ . '/redirect.php');
+    require_once(__DIR__ . '/Lib/Redirect.php');
 
     try {
         $inputName = filter_input(INPUT_POST, 'name');
@@ -31,7 +31,7 @@
         }
 
         $path = 'http://localhost/blog/index.php?email=' . $inputEmail;
-        redirect($path);
+        Redirect::handler($path);
     } catch (Exception $e) {
         echo $e->getMessage();
         $path = 'http://localhost/blog/signup.php';

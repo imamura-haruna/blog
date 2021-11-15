@@ -1,16 +1,18 @@
 <?php
 require_once(__DIR__ . '/Dao/UserDao.php');
 require_once(__DIR__ . '/Dao/BlogDao.php');
-require_once(__DIR__ . '/redirect.php');
+require_once(__DIR__ . '/Lib/Redirect.php');
 
 session_start();
 
-$userId = $_SESSION['user_id'] ?? null;
-$userName = $_SESSION['name'] ?? 'ゲスト';
+$userId = $_SESSION['user']['id'] ?? null;
+$userName = $_SESSION['user']['name'] ?? 'ゲスト';
+
 
 try {
     // TODO: 誰のブログとか関係なく、全件取得でOKです！
-    $blogList = $userDao->findById($userId);
+    $blogDao = new BlogDao;
+    $blogList = $blogDao->findAll($userId);
 } catch (Exception $e) {
     echo $e->getMessage();
 }
@@ -46,9 +48,10 @@ try {
         </form>
         <?php if ($blogList != null) : ?>
             <?php foreach ($blogList as $blog) : ?>
-                <>
-                <?php endforeach; ?>
-            <?php endif; ?>
+                <?php $blog['title'] ?>
+                <?php $blog['contents'] ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </header>
 </body>
 

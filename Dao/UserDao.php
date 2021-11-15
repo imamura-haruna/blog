@@ -1,5 +1,6 @@
 <?php
 
+require_once(__DIR__ . '/../Lib/PdoInitializer.php');
 
 final class UserDao
 {
@@ -8,10 +9,8 @@ final class UserDao
 
     public function __construct()
     {
-        $dsn = 'mysql:dbname=blog;host=localhost;charset=utf8';
-        $user = 'root';
-        $password = '.ct6yQ-R*H2l8Baz';
-        $this->pdo = new PDO($dsn, $user, $password);
+        // TODO: PdoInitializerで書き直す
+        $this->pdo = PdoInitializer::handler();
     }
 
     public function findByEmail(string $email): ?array

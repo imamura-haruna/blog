@@ -27,7 +27,7 @@
         <input type="hidden" name="id" value="<?php if (!empty($memo['id'])) echo (htmlspecialchars($memo['id'], ENT_QUOTES, 'UTF-8')); ?>">
         <input type="submit" value="新規会員登録">
     </form>
-    <a href="login.php">ログイン画面へ</a>
+    <a href="loginHome.php">ログイン画面へ</a>
 </body>
 
 </html>
